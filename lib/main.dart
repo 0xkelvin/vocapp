@@ -172,13 +172,9 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(8),
         children: List.generate(
           _list.length,
-          (index) => TextFormField(
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              filled: true,
-            ),
-            initialValue: _list[index],
-            readOnly: true,
+          (index) => ListTile(
+            title: Text(_list[index]),
+            subtitle: const Text("meaning"),
           ),
         ),
       ),
