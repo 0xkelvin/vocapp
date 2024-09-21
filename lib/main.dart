@@ -60,8 +60,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  List<String> _list = [];
-  final textController = TextEditingController();
+  List<String> _listword = [];
+  List<String> _meaning = [];
+  final wordtextController = TextEditingController();
+  final meantextController = TextEditingController();
 
   void _incrementCounter() {
     setState(() {
@@ -104,15 +106,32 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Add new word"),
-        content: TextField(
-          controller: textController,
+        content: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'your new word',
+                ),
+                controller: wordtextController,
+              ),
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'what does it means',
+                ),
+                controller: meantextController,
+              ),
+            ],
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () {
               setState(() {
-                _list.add(textController.text);
-                textController.clear();
+                _listword.add(wordtextController.text);
+                _meaning.add(meantextController.text);
+                meantextController.clear();
+                wordtextController.clear();
               });
               Navigator.pop(context);
             },
@@ -171,10 +190,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ListView(
         padding: const EdgeInsets.all(8),
         children: List.generate(
-          _list.length,
+          _listword.length,
           (index) => ListTile(
-            title: Text(_list[index]),
-            subtitle: const Text("meaning"),
+            title: Text(_listword[index]),
+            subtitle: Text(_meaning[index]),
+            trailing: const Icon(Icons.volume_up),
           ),
         ),
       ),
