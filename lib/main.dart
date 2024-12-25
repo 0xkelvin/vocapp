@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/services/services_mixin.dart';
 
@@ -11,23 +12,27 @@ class MyApp extends StatelessWidget with ServicesMixin {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurpleAccent,
+    return LayoutBuilder(builder: (context, constraints) {
+      final screenType = layout.getScreenType(constraints.maxWidth);
+      layout.setScreenType(screenType);
+
+      return ScreenUtilInit(
+        designSize: layout.screenType.designSize,
+        builder: (context, child) => MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(primarySwatch: Colors.blue),
+          scaffoldMessengerKey: msg.rootScaffoldMessengerKey,
+          home: child,
         ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      scaffoldMessengerKey: msg.rootScaffoldMessengerKey,
-      home: Overlay(
-        initialEntries: [
-          OverlayEntry(
-            builder: (context) => const MyHomePage(),
-          ),
-        ],
-      ),
-    );
+        child: Overlay(
+          initialEntries: [
+            OverlayEntry(
+              builder: (context) => const MyHomePage(),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 
