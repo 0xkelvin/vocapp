@@ -21,34 +21,18 @@ class MyApp extends StatelessWidget with ServicesMixin {
 
       return ScreenUtilInit(
         designSize: layout.screenType.designSize,
-        builder: (context, child) => MaterialApp(
-          title: 'Flutter Demo',
+        builder: (context, child) => MaterialApp.router(
+          title: 'VOCAPP',
           theme: ThemeData(primarySwatch: Colors.blue),
           scaffoldMessengerKey: msg.rootScaffoldMessengerKey,
           locale: TranslationProvider.of(context).flutterLocale, // use provider
           supportedLocales: AppLocaleUtils.supportedLocales,
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          home: child,
-        ),
-        child: Overlay(
-          initialEntries: [
-            OverlayEntry(
-              builder: (context) => const MyHomePage(),
-            ),
-          ],
+          routeInformationParser: router.defaultRouteParser(),
+          routerDelegate: router.delegate(),
+          builder: (context, child) => child ?? const SizedBox(),
         ),
       );
     });
-  }
-}
-
-class MyHomePage extends StatelessWidget with ServicesMixin {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('VOCAPP')),
-    );
   }
 }
