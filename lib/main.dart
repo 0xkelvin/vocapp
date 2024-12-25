@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'core/services/services_mixin.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with ServicesMixin {
   const MyApp({super.key});
 
   @override
@@ -17,20 +19,25 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyHomePage(),
+      scaffoldMessengerKey: msg.rootScaffoldMessengerKey,
+      home: Overlay(
+        initialEntries: [
+          OverlayEntry(
+            builder: (context) => const MyHomePage(),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatelessWidget with ServicesMixin {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('VOCAPP'),
-      ),
+      appBar: AppBar(title: const Text('VOCAPP')),
     );
   }
 }
