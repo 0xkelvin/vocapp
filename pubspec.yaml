@@ -77,3 +77,10 @@ flutter_gen:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/avatars/
+    - assets/images/backgrounds/
+    - assets/images/dictionary/
+    - assets/svgs/
+    - assets/svgs/appIcons/
