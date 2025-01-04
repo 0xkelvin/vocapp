@@ -12,6 +12,17 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// Directory path: assets/fonts/dmSans
+  $AssetsFontsDmSansGen get dmSans => const $AssetsFontsDmSansGen();
+
+  /// Directory path: assets/fonts/dmSerifDisplay
+  $AssetsFontsDmSerifDisplayGen get dmSerifDisplay =>
+      const $AssetsFontsDmSerifDisplayGen();
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -32,6 +43,115 @@ class $AssetsSvgsGen {
 
   /// Directory path: assets/svgs/appIcons
   $AssetsSvgsAppIconsGen get appIcons => const $AssetsSvgsAppIconsGen();
+}
+
+class $AssetsFontsDmSansGen {
+  const $AssetsFontsDmSansGen();
+
+  /// File path: assets/fonts/dmSans/DMSans-Black.ttf
+  String get dMSansBlack => 'assets/fonts/dmSans/DMSans-Black.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-BlackItalic.ttf
+  String get dMSansBlackItalic => 'assets/fonts/dmSans/DMSans-BlackItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-Bold.ttf
+  String get dMSansBold => 'assets/fonts/dmSans/DMSans-Bold.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-BoldItalic.ttf
+  String get dMSansBoldItalic => 'assets/fonts/dmSans/DMSans-BoldItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-ExtraBold.ttf
+  String get dMSansExtraBold => 'assets/fonts/dmSans/DMSans-ExtraBold.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-ExtraBoldItalic.ttf
+  String get dMSansExtraBoldItalic =>
+      'assets/fonts/dmSans/DMSans-ExtraBoldItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-ExtraLight.ttf
+  String get dMSansExtraLight => 'assets/fonts/dmSans/DMSans-ExtraLight.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-ExtraLightItalic.ttf
+  String get dMSansExtraLightItalic =>
+      'assets/fonts/dmSans/DMSans-ExtraLightItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-Italic-VariableFont.ttf
+  String get dMSansItalicVariableFont =>
+      'assets/fonts/dmSans/DMSans-Italic-VariableFont.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-Italic.ttf
+  String get dMSansItalic => 'assets/fonts/dmSans/DMSans-Italic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-Light.ttf
+  String get dMSansLight => 'assets/fonts/dmSans/DMSans-Light.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-LightItalic.ttf
+  String get dMSansLightItalic => 'assets/fonts/dmSans/DMSans-LightItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-Medium.ttf
+  String get dMSansMedium => 'assets/fonts/dmSans/DMSans-Medium.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-MediumItalic.ttf
+  String get dMSansMediumItalic =>
+      'assets/fonts/dmSans/DMSans-MediumItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-Regular.ttf
+  String get dMSansRegular => 'assets/fonts/dmSans/DMSans-Regular.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-SemiBold.ttf
+  String get dMSansSemiBold => 'assets/fonts/dmSans/DMSans-SemiBold.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-SemiBoldItalic.ttf
+  String get dMSansSemiBoldItalic =>
+      'assets/fonts/dmSans/DMSans-SemiBoldItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-Thin.ttf
+  String get dMSansThin => 'assets/fonts/dmSans/DMSans-Thin.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-ThinItalic.ttf
+  String get dMSansThinItalic => 'assets/fonts/dmSans/DMSans-ThinItalic.ttf';
+
+  /// File path: assets/fonts/dmSans/DMSans-VariableFont_opsz,wght.ttf
+  String get dMSansVariableFontOpszWght =>
+      'assets/fonts/dmSans/DMSans-VariableFont_opsz,wght.ttf';
+
+  /// List of all assets
+  List<String> get values => [
+        dMSansBlack,
+        dMSansBlackItalic,
+        dMSansBold,
+        dMSansBoldItalic,
+        dMSansExtraBold,
+        dMSansExtraBoldItalic,
+        dMSansExtraLight,
+        dMSansExtraLightItalic,
+        dMSansItalicVariableFont,
+        dMSansItalic,
+        dMSansLight,
+        dMSansLightItalic,
+        dMSansMedium,
+        dMSansMediumItalic,
+        dMSansRegular,
+        dMSansSemiBold,
+        dMSansSemiBoldItalic,
+        dMSansThin,
+        dMSansThinItalic,
+        dMSansVariableFontOpszWght
+      ];
+}
+
+class $AssetsFontsDmSerifDisplayGen {
+  const $AssetsFontsDmSerifDisplayGen();
+
+  /// File path: assets/fonts/dmSerifDisplay/DMSerifDisplay-Italic.ttf
+  String get dMSerifDisplayItalic =>
+      'assets/fonts/dmSerifDisplay/DMSerifDisplay-Italic.ttf';
+
+  /// File path: assets/fonts/dmSerifDisplay/DMSerifDisplay-Regular.ttf
+  String get dMSerifDisplayRegular =>
+      'assets/fonts/dmSerifDisplay/DMSerifDisplay-Regular.ttf';
+
+  /// List of all assets
+  List<String> get values => [dMSerifDisplayItalic, dMSerifDisplayRegular];
 }
 
 class $AssetsImagesAvatarsGen {
@@ -90,6 +210,7 @@ class $AssetsSvgsAppIconsGen {
 class Assets {
   Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsSvgsGen svgs = $AssetsSvgsGen();
 }
