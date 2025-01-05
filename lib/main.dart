@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/injection/service_locator.dart';
 import 'core/services/services_mixin.dart';
 import 'core/theme/vocapp_theme.dart';
 import 'i18n/translations.g.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   runApp(TranslationProvider(child: const MyApp()));
 }
 
