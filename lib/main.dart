@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:window_size/window_size.dart';
 
 import 'core/injection/service_locator.dart';
 import 'core/services/services_mixin.dart';
@@ -9,6 +12,12 @@ import 'i18n/translations.g.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowTitle('Voca Notes');
+    setWindowMinSize(const Size(960, 720));
+  }
+
   configureDependencies();
   runApp(TranslationProvider(child: const MyApp()));
 }
