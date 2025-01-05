@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/services/services_mixin.dart';
+import 'core/theme/vocapp_theme.dart';
 import 'i18n/translations.g.dart';
 
 void main() {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget with ServicesMixin {
         designSize: layout.screenType.designSize,
         builder: (context, child) => MaterialApp.router(
           title: 'VOCAPP',
-          theme: ThemeData(primarySwatch: Colors.blue),
+          theme: VocappTheme.dark(),
           scaffoldMessengerKey: msg.rootScaffoldMessengerKey,
           locale: TranslationProvider.of(context).flutterLocale, // use provider
           supportedLocales: AppLocaleUtils.supportedLocales,
