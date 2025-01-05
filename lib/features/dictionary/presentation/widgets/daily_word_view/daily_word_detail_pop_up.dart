@@ -2,12 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../../components/ui/coming_soon_dialog.dart';
 import '../../../../../core/theme/vocapp_theme.dart';
+import '../../../domain/entities/dictionary_item/dictionary_item.dart';
+import '../../../domain/entities/enums/languange_type.dart';
 
 class DailyWordDetailPopUp extends StatelessWidget {
-  const DailyWordDetailPopUp({
-    super.key,
-  });
+  const DailyWordDetailPopUp({super.key, required this.dictionaryItem});
+
+  final DictionaryItem dictionaryItem;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +26,12 @@ class DailyWordDetailPopUp extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Expanded(child: _LeftSide()),
+          Expanded(child: _LeftSide(dictionaryItem: dictionaryItem)),
           VerticalDivider(
             color: context.appColor.neutral20,
             width: 56,
           ),
-          const Expanded(child: _RightSide()),
+          Expanded(child: _RightSide(dictionaryItem: dictionaryItem)),
         ],
       ),
     );
@@ -36,7 +39,11 @@ class DailyWordDetailPopUp extends StatelessWidget {
 }
 
 class _LeftSide extends StatelessWidget {
-  const _LeftSide();
+  const _LeftSide({
+    required this.dictionaryItem,
+  });
+
+  final DictionaryItem dictionaryItem;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class _LeftSide extends StatelessWidget {
         Row(
           children: [
             Text(
-              'hello',
+              dictionaryItem.wordTo.word,
               style: TextStyle(
                 fontFamily: 'DM Serif Display',
                 color: context.appColor.secondaryColor,
@@ -55,20 +62,38 @@ class _LeftSide extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            Text(
-              '/həˈləʊ/',
-              style: TextStyle(
-                color: context.appColor.neutral30,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(width: 4),
-            Icon(
-              FontAwesomeIcons.volumeLow,
-              color: context.appColor.secondaryColor,
-              size: 18,
-            )
+            if (dictionaryItem.wordTo.pronunciation != null)
+              Row(
+                children: [
+                  Text(
+                    dictionaryItem.wordTo.pronunciation ?? '',
+                    style: TextStyle(
+                      color: context.appColor.neutral30,
+                      fontSize: 16,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          const ComingSoonDialog(),
+                    ),
+                    icon: Icon(
+                      FontAwesomeIcons.volumeLow,
+                      color: context.appColor.secondaryColor,
+                      size: 18,
+                    ),
+                  )
+                ],
+              )
           ],
+        ),
+        Text(
+          dictionaryItem.wordFrom.word,
+          style: TextStyle(
+            color: context.appColor.neutral40,
+            fontSize: 16,
+          ),
         ),
         const SizedBox(height: 16),
 
@@ -115,9 +140,15 @@ class _LeftSide extends StatelessWidget {
         const SizedBox(height: 16),
 
         /* Save Button */
-        const Align(
+        Align(
           alignment: Alignment.centerRight,
-          child: _Button(text: 'Save'),
+          child: _Button(
+            text: 'Save',
+            onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) => const ComingSoonDialog(),
+            ),
+          ),
         )
       ],
     );
@@ -125,7 +156,9 @@ class _LeftSide extends StatelessWidget {
 }
 
 class _RightSide extends StatefulWidget {
-  const _RightSide();
+  const _RightSide({required this.dictionaryItem});
+
+  final DictionaryItem dictionaryItem;
 
   @override
   State<_RightSide> createState() => _RightSideState();
@@ -186,13 +219,17 @@ class _RightSideState extends State<_RightSide>
         Row(
           children: [
             _Button(
-              text: 'English',
+              text: LanguangeType.fromLocaleCode(widget.dictionaryItem.langTo)
+                      ?.nameWithFlag ??
+                  '',
               isActive: _tabController.index == 0,
               onPressed: () => _tabController.animateTo(0),
             ),
             const SizedBox(width: 8),
             _Button(
-              text: 'Vietnamese',
+              text: LanguangeType.fromLocaleCode(widget.dictionaryItem.langFrom)
+                      ?.nameWithFlag ??
+                  '',
               isActive: _tabController.index == 1,
               onPressed: () => _tabController.animateTo(1),
             ),
@@ -211,96 +248,19 @@ class _RightSideState extends State<_RightSide>
               controller: _tabController,
               children: List.generate(
                 2,
-                (index) => Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: ListView(
-                    children: [
-                      Text(
-                        'Exclamation',
-                        style: TextStyle(
-                          color: context.appColor.neutral50,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -0.25,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        'used as a greeting or to begin a phone conversation.',
-                        style: TextStyle(
-                          color: context.appColor.neutral50,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        'e.g. “hello there, Katie!”',
-                        style: TextStyle(
-                          color: context.appColor.neutral30,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Divider(
-                        height: 40,
-                        color: context.appColor.neutral20,
-                      ),
-                      Text(
-                        'Exclamation',
-                        style: TextStyle(
-                          color: context.appColor.neutral50,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -0.25,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        'used as a greeting or to begin a phone conversation.',
-                        style: TextStyle(
-                          color: context.appColor.neutral50,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        'e.g. “hello there, Katie!”',
-                        style: TextStyle(
-                          color: context.appColor.neutral30,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Divider(
-                        height: 40,
-                        color: context.appColor.neutral20,
-                      ),
-                      Text(
-                        'Exclamation',
-                        style: TextStyle(
-                          color: context.appColor.neutral50,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -0.25,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        'used as a greeting or to begin a phone conversation.',
-                        style: TextStyle(
-                          color: context.appColor.neutral50,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        'e.g. “hello there, Katie!”',
-                        style: TextStyle(
-                          color: context.appColor.neutral30,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                (index) {
+                  final word = index == 0
+                      ? widget.dictionaryItem.wordTo
+                      : widget.dictionaryItem.wordFrom;
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ListView(
+                      children: word.details
+                          .map((element) => _WordDetails(detail: element))
+                          .toList(),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -309,8 +269,53 @@ class _RightSideState extends State<_RightSide>
     );
   }
 
-  void _tabIndexListener() {
-    setState(() {});
+  void _tabIndexListener() => setState(() {});
+}
+
+class _WordDetails extends StatelessWidget {
+  const _WordDetails({
+    required this.detail,
+  });
+
+  final DictionaryWordDetail detail;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          detail.type,
+          style: TextStyle(
+            color: context.appColor.neutral50,
+            fontWeight: FontWeight.bold,
+            letterSpacing: -0.25,
+            fontSize: 16,
+          ),
+        ),
+        Text(
+          detail.description,
+          style: TextStyle(
+            color: context.appColor.neutral50,
+            fontWeight: FontWeight.w300,
+            fontSize: 16,
+          ),
+        ),
+        if (detail.example != null)
+          Text(
+            detail.example ?? '',
+            style: TextStyle(
+              color: context.appColor.neutral30,
+              fontWeight: FontWeight.w300,
+              fontSize: 16,
+            ),
+          ),
+        Divider(
+          height: 40,
+          color: context.appColor.neutral20,
+        ),
+      ],
+    );
   }
 }
 

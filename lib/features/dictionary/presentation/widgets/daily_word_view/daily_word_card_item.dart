@@ -1,28 +1,37 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../core/theme/vocapp_theme.dart';
 import '../../../../../gen/assets.gen.dart';
+import '../../../domain/entities/dictionary_item/dictionary_item.dart';
 import 'daily_word_detail_pop_up.dart';
 
 class DailyWordCardItem extends StatefulWidget {
-  const DailyWordCardItem({super.key});
+  const DailyWordCardItem({
+    super.key,
+    required this.dictionaryItem,
+    this.showAsSkeleton = false,
+  });
+
+  final DictionaryItem dictionaryItem;
+  final bool showAsSkeleton;
 
   @override
   State<DailyWordCardItem> createState() => _DailyWordCardItemState();
 }
 
 class _DailyWordCardItemState extends State<DailyWordCardItem> {
-  final _isPressed = ValueNotifier<bool>(false);
   final _isHovered = ValueNotifier<bool>(false);
   final _mouseCenteredOffset = ValueNotifier<Offset>(Offset.zero);
 
   @override
   void dispose() {
     super.dispose();
-    _isPressed.dispose();
     _isHovered.dispose();
     _mouseCenteredOffset.dispose();
   }
@@ -62,7 +71,9 @@ class _DailyWordCardItemState extends State<DailyWordCardItem> {
                         ),
                         child: GestureDetector(
                           onTap: () {},
-                          child: const DailyWordDetailPopUp(),
+                          child: DailyWordDetailPopUp(
+                            dictionaryItem: widget.dictionaryItem,
+                          ),
                         ),
                       ),
                     ),
@@ -121,7 +132,7 @@ class _DailyWordCardItemState extends State<DailyWordCardItem> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'bring',
+                                widget.dictionaryItem.wordTo.word,
                                 style: TextStyle(
                                   fontFamily: 'DM Serif Display',
                                   letterSpacing: -.25,
@@ -130,7 +141,7 @@ class _DailyWordCardItemState extends State<DailyWordCardItem> {
                                 ),
                               ),
                               Text(
-                                'mang đến',
+                                widget.dictionaryItem.wordFrom.word,
                                 style: TextStyle(
                                   letterSpacing: -.25,
                                   color: context.appColor.neutral10,
@@ -142,8 +153,31 @@ class _DailyWordCardItemState extends State<DailyWordCardItem> {
                         ),
                         Container(
                           height: 40,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
                             color: context.appColor.neutral10.withOpacity(0.5),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.bookmark,
+                                size: 18,
+                                color: context.appColor.secondaryColor,
+                              ),
+                              const SizedBox(width: 12),
+                              Icon(
+                                FontAwesomeIcons.solidTrashCan,
+                                size: 18,
+                                color: context.appColor.secondaryColor,
+                              ),
+                              const SizedBox(width: 12),
+                              Icon(
+                                FontAwesomeIcons.volumeLow,
+                                size: 18,
+                                color: context.appColor.neutral30,
+                              ),
+                            ],
                           ),
                         )
                       ],
@@ -154,6 +188,129 @@ class _DailyWordCardItemState extends State<DailyWordCardItem> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DailyWordCardLoading extends StatelessWidget {
+  const DailyWordCardLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) => ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Skeletonizer(
+          effect: const ShimmerEffect(),
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.appColor.neutral10.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: context.appColor.neutral10.withOpacity(0.1),
+                width: 2,
+                // strokeAlign: BorderSide.strokeAlignInside,
+              ),
+            ),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Opacity(
+                    opacity: 0.1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          BoneMock.chars(Random().nextInt(6) + 3),
+                          style: const TextStyle(fontSize: 32),
+                        ),
+                        Text(
+                          BoneMock.chars(Random().nextInt(9) + 5),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: constraints.maxWidth,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: context.appColor.neutral10.withOpacity(0.5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DailyWordCardError extends StatelessWidget {
+  final VoidCallback? onRetry;
+
+  const DailyWordCardError({super.key, this.onRetry});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error_outline,
+            color: context.appColor.neutral10,
+            size: 48,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Oops! Something went wrong.',
+            style: TextStyle(
+              fontSize: 18,
+              color: context.appColor.neutral10,
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (onRetry != null)
+            ElevatedButton(
+              onPressed: onRetry,
+              child: const Text('Retry'),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class DailyWordCardEmpty extends StatelessWidget {
+  const DailyWordCardEmpty({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.inbox,
+            color: context.appColor.neutral10,
+            size: 48,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'No words available today.',
+            style: TextStyle(
+              fontSize: 18,
+              color: context.appColor.neutral10,
+            ),
+          ),
+        ],
       ),
     );
   }

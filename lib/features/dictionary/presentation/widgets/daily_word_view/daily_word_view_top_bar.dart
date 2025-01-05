@@ -6,6 +6,7 @@ import 'package:jiffy/jiffy.dart';
 import '../../../../../core/constants/sizing_constants.dart';
 import '../../../../../core/theme/vocapp_theme.dart';
 import '../../../domain/entities/dictionary_state/dictionary_state.dart';
+import '../../state_managers/daily_word/daily_word_cubit.dart';
 import '../../state_managers/dictionary_cubit.dart';
 
 class DailyWordViewTopBar extends StatelessWidget {
@@ -39,22 +40,27 @@ class DailyWordViewTopBar extends StatelessWidget {
                   const SizedBox(width: 16),
 
                   /* Word Count */
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: context.appColor.neutral10,
-                    ),
-                    child: Text(
-                      '60 Words',
-                      style: TextStyle(
-                        color: context.appColor.secondaryColor,
-                        fontSize: 16,
-                      ),
-                    ),
+                  BlocSelector<DailyWordCubit, DailyWordState, int>(
+                    selector: (state) => state.data?.length ?? 0,
+                    builder: (context, state) => state == 0
+                        ? const SizedBox()
+                        : Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: context.appColor.neutral10,
+                            ),
+                            child: Text(
+                              '$state Words',
+                              style: TextStyle(
+                                color: context.appColor.secondaryColor,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
                   ),
                 ],
               ),
