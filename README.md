@@ -1,5 +1,17 @@
 # voca_notes
 
+(1) generate a pharse or a conversation from the word that user's take note. Ex : "mind" -> app suggest a pharse : "change my mind"
+
+(2) generate opposites and synonyms from the word that user;s take note. 
+
+(3) generate prefixes form and suffixes form for user
+
+(4) generate formal and informal equivalents
+
+(5) generate extreme version of adjectives
+
+https://youtu.be/_orJ8GPYMQU?si=KeVa93u5PmBBuh91
+
 A new Flutter project.
 
 ## Getting Started
