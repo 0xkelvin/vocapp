@@ -1,0 +1,16 @@
+{
+  "dart.flutterSdkPath": ".fvm/versions/3.24.4",
+  "files.watcherExclude": {
+    "**/build": true,
+    "**/ios": true,
+    "**/android": true,
+    "**/linux": true,
+    "**/macos": true,
+    "**/windows": true,
+    "**/web": true,
+    "**/.fvm": true,
+    "**/.dart_tool": true,
+    "**/.idea": true,
+    "**/.vscode": true,
+  }
+}
